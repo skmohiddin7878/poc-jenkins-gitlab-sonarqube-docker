@@ -2,19 +2,9 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://gitlab.com/YOUR_USERNAME/poc-jenkins-gitlab-sonarqube-docker.git'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'sonar-scanner'
-                }
+                checkout scm
             }
         }
 
@@ -24,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Application') {
+        stage('Deploy') {
             steps {
                 sh '''
                 docker stop poc-app || true
