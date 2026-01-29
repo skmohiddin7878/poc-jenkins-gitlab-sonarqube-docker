@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -10,19 +11,18 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t poc-app .'
+                sh 'docker build -t poc8-app .'
             }
         }
 
         stage('Deploy') {
             steps {
                 sh '''
-                docker stop poc-app || true
-                docker rm poc-app || true
-                docker run -d -p 3000:3000 --name poc-app poc-app
+                docker stop poc8-app || true
+                docker rm poc8-app || true
+                docker run -d -p 3001:3000 --name poc8-app poc8-app
                 '''
             }
         }
     }
 }
-
